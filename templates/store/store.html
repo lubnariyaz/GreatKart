@@ -143,7 +143,11 @@
 
 					</div> <!-- price-wrap.// -->
 				</div>
-				<a href="#" class="btn btn-block btn-primary">Add to cart </a>
+				{% if not product %}
+				<a href="{% url 'add_cart' product.id %}" class="btn btn-block btn-primary">Add to cart </a>
+				{% else %}
+				<button class="btn btn-block btn-primary">Added to cart </button>
+				{% endif %}
 			</figcaption>
 		</figure>
 	</div> <!-- col.// -->
