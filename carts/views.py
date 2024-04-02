@@ -20,7 +20,7 @@ def add_cart(request, product_id):
             value = request.POST[key]
 
             try:
-                variation = Variations.objects.get(product=product, variation_category__iexact=key, variation_value__iexact=value)
+                variation = Variation.objects.get(product=product, variation_category__iexact=key, variation_value__iexact=value)
                 product_variation.append(variation)
             except:
                 pass
@@ -70,7 +70,7 @@ def add_cart(request, product_id):
         )
         if len(product_variation) > 0:
             cart_item.variations.clear()
-            cart_item.variation.add(*product_variation)
+            cart_item.variations.add(*product_variation)
         cart_item.save()
     return redirect('cart')
 

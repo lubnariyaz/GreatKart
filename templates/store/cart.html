@@ -8,7 +8,10 @@
 
 <!-- ============================ COMPONENT 1 ================================= -->
 {% if not cart_items %}
-	<h2>Your Shopping Cart is Empty</h2>
+	<center><h2>Your Shopping Cart is Empty</h2></center>
+	<div class="text-center">
+		<a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping</a>
+	</div>
 {% else %}
 <div class="row">
 	<aside class="col-lg-9">
@@ -51,10 +54,10 @@
 							<div class="input-group-append">
 								<form action="{% url 'add_cart' item.product.id %}" method="POST">
 									{% csrf_token %}
-									{% for itm in cart_item.variations.all %}
-										<input type="hidden" name="{{itm.variation_category | lower}}" value="{{itm.variation_category | capfirst}}">
+									{% for itm in item.variations.all %}
+										<input type="hidden" name="{{ itm.variation_category | lower }}" value="{{ itm.variation_value | capfirst }}">
 									{% endfor %}
-									<button  class="btn btn-light" type="submit" id="button-plus"> <i class="fa fa-plus"></i> </button>
+									<button class="btn btn-light" type="submit" id="button-minus"> <i class="fa fa-plus"></i> </button>
 								</form>
 							</div>
 						</div> <!-- input-group.// -->
