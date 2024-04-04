@@ -39,8 +39,8 @@ def register(request):
             })
 
             to_email = email
-            send_email = EmailMessage(mail_subject, message, to=[to_email])
-            send_email.send()
+            # send_email = EmailMessage(mail_subject, message, to=[to_email])
+            # send_email.send()
 
 
             messages.success(request, 'Registration Successful.')
@@ -61,8 +61,8 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            # messages.success(request, "You are now logged in.")
-            return redirect('home')
+            messages.success(request, "You are now logged in.")
+            return redirect('dashboard')
         else:
             messages.error(request, 'Invalid Login Credentials')
             return redirect('login')
@@ -76,5 +76,23 @@ def logout(request):
 
 
 
-def activate(request):
-    return
+# def activate(request):
+#     return
+
+
+def dashboard(request):
+    return render(request, 'accounts/dashboard.html')
+
+
+
+def forgotPassword(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        if Account.objects.filter(email=email).exists():
+            user = Account.objects.get(email__exact=email)
+
+            ## Send email code Goes here
+
+        else:
+            messages.error(request, 'Account Does Not Exist')
+    return render(request, 'accounts/forgotPassword.html')
